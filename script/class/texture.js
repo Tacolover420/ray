@@ -64,6 +64,24 @@ function getWallTexture(type) {
         case Texture.Wall.Wood:
             return Load.Wood
             break;
+        case Texture.Wall.Brick:
+            return Load.Brick
+            break;
+        case Texture.Wall.Cobble:
+            return Load.Cobble
+            break;
+        case Texture.Wall.Colorstone:
+            return Load.Colorstone
+            break;
+        case Texture.Wall.Purplestone:
+            return Load.Purplestone
+            break;
+        case Texture.Wall.Bluestone:
+            return Load.Bluestone
+            break;
+        case Texture.Wall.Mossy:
+            return Load.Mossy
+            break;
         default:
             return Load.Stone
     }

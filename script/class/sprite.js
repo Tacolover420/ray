@@ -27,3 +27,15 @@ class Sprite {
         }
     }
 }
+
+function insidefov(line1, line2) {
+    let  angle1 = Math.atan2(line1.y1 - line1.y2, line1.x1 - line1.x2);
+    let  angle2 = Math.atan2(line2.y1 - line2.y2, line2.x1 - line2.x2);
+    let angle =  (angle1 - angle2) * 180 / Math.PI;
+    if (angle <= 45 && angle >= - 45) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
