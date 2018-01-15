@@ -1,3 +1,3 @@
 # Raycasting
-### redone with three.js and more swag
-https://nichtgian.github.io/ray/index.html
+### redone with not three.js and more swag
+https://nichtgian.github.io/ray/
