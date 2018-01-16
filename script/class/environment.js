@@ -3,7 +3,7 @@ class Environmemt {
         this.width = width;
         this.height = height;
         this.block = 50;
-        this.transform = 20000;
+        this.transform = 25000;
         this.grid = [
             [1, 1, 1, 1, 1, 1],
             [1, 0, 0, 0, 0, 1],
@@ -20,6 +20,7 @@ class Environmemt {
     }
 
     renderSprite(sprite) {
+
         let cross = {x: sprite.x, y: player.y};
         let dist = {player: getDistance(player.x, player.y, cross.x, cross.y), sprite: getDistance(sprite.x, sprite.y, cross.x, cross.y)};
         let angle = Math.atan(dist.sprite / dist.player) * 180 / Math.PI;
@@ -29,6 +30,7 @@ class Environmemt {
         if (pod > 180) {
             pod -= 360;
         }
+        console.log(-pod + 45 + angle);
         let drawx = (-pod + 45 + angle) / player.fov * canvas.width - size / 2;
         let drawy = canvas.height / 2 - size / 2;
         ctx.drawImage(sprite.source, drawx , drawy, size, size);
@@ -70,6 +72,9 @@ class Environmemt {
                     hit = true;
                 }
                 distance += 0.5;
+                if (distance > 10000) {
+                    hit = true;
+                }
             }while(!hit);
             distance = Math.floor(this.transform / distance);
             /*if(shadow){

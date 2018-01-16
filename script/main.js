@@ -1,5 +1,5 @@
 let environment = new Environmemt(6, 6);
-let minimap = new Minimap(300);
+let minimap = new Minimap(200);
 let player = new Player(60, 60, 0);
 
 setTimeout(function() {

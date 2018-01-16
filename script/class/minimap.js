@@ -1,11 +1,14 @@
 class Minimap {
     constructor(width) {
         this.width = width;
-        this.blockSurface = environment.width / environment.block * width;
+        //this.blockSurface = environment.width / environment.block * width;
+        this.blockSurface = width / (environment.width * environment.block) * environment.block;
         this.height = this.blockSurface * environment.height;
     }
 
     render() {
+        ctx.fillStyle = Texture.Color.Ground;
+        ctx.fillRect(0, 0, this.width, this.height);
         ctx.fillStyle = "#000";
         for(let y = 0; y < environment.height; y++) {
             for(let x = 0; x < environment.width; x++) {
