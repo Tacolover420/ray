@@ -5,6 +5,7 @@ class Minimap{
         this.height = this.blockSurface * environment.height;
     }
     render() {
+        ctx.fillStyle = "#000";
         for(let y = 0; y < environment.height; y++) {
             for(let x = 0; x < environment.width; x++) {
                 if(environment.grid[y][x] != Texture.Wall.Empty) {
