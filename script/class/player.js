@@ -7,6 +7,7 @@ class Player {
         this.fov = 90;
         this.fat = 15;
     }
+
     move(deg) {
         let deviation = this.fat / 2;
         let block = environment.block;

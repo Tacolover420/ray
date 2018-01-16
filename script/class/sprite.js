@@ -5,6 +5,7 @@ class Sprite {
         this.type = type;
         this.source = this.getSource();
     }
+
     getSource() {
         switch(this.type) {
             case Texture.Sprite.Armor:

@@ -59,7 +59,7 @@ Load.Plant.src = "texture/sprite/plant.png";
 Load.Barrel.src = "texture/sprite/barrel.png";
 Load.Pillar.src = "texture/sprite/pillar.png";
 
-function getWallTexture(type) {
+function getWallSource(type) {
     switch(type) {
         case Texture.Wall.Wood:
             return Load.Wood
