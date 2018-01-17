@@ -7,31 +7,36 @@ class Environmemt {
         this.grid = [
             [1, 1, 1, 1, 1, 1],
             [1, 0, 0, 0, 0, 1],
-            [1, 0, 0, 2, 0, 1],
+            [1, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 1],
             [1, 1, 1, 1, 1, 1]
         ];
         this.sprite = [
-            new Sprite(100, 100, Texture.Sprite.Table),
-            new Sprite(60, 200, Texture.Sprite.Table),
-            new Sprite(200, 60, Texture.Sprite.Table)
+            new Sprite(150, 150, Texture.Sprite.Table)
         ];
     }
 
     renderSprite(sprite) {
-
         let cross = {x: sprite.x, y: player.y};
         let dist = {player: getDistance(player.x, player.y, cross.x, cross.y), sprite: getDistance(sprite.x, sprite.y, cross.x, cross.y)};
-        let angle = Math.atan(dist.sprite / dist.player) * 180 / Math.PI;
         let distance = getDistance(player.x, player.y, sprite.x, sprite.y);
         let size = this.transform / distance;
         let pod = player.pod;
-        if (pod > 180) {
-            pod -= 360;
-        }
-        console.log(-pod + 45 + angle);
+        let angle = Math.atan(dist.sprite / dist.player) * 180 / Math.PI;
         let drawx = (-pod + 45 + angle) / player.fov * canvas.width - size / 2;
+        if(player.x < sprite.x && player.y > sprite.y) { //1. Quadrant
+            angle = Math.asin(dist.sprite / distance) * 180 / Math.PI;
+            drawx = (-pod + 45 - angle) / player.fov * canvas.width - size / 2;
+        }
+        else if(player.x > sprite.x && player.y < sprite.y) { //3. Quadrant
+            angle = Math.asin(dist.sprite / distance) * 180 / Math.PI;
+            drawx = (-pod + 180 + 45 - angle) / player.fov * canvas.width - size / 2;
+        }
+        else if(player.x > sprite.x && player.y > sprite.y) { //2. Quadrant
+            angle = Math.asin(dist.sprite / distance) * 180 / Math.PI;
+            drawx = (-pod + 180 + 45 + angle) / player.fov * canvas.width - size / 2;
+        }
         let drawy = canvas.height / 2 - size / 2;
         ctx.drawImage(sprite.source, drawx , drawy, size, size);
     }
@@ -51,7 +56,7 @@ class Environmemt {
             let ray = player.pod + (-player.fov / 2 + player.fov / resolution * x);
             let distance = 0, offset = 0;
             let hit = false, shadow = false;
-            do{
+            do {
                 let rayx = player.x + distance * Math.cos(ray * (Math.PI / 180));
                 let rayy = player.y + distance * Math.sin(ray * (Math.PI / 180));
                 if(this.grid[Math.floor(rayx / this.block)][Math.floor(rayy / this.block)] != Texture.Wall.Empty){
@@ -84,7 +89,6 @@ class Environmemt {
             }*/
             ctx.drawImage(Load.Stone, offset / 64 * Load.Stone.width, 0, Load.Stone.width / (canvas.width / 2), Load.Stone.height, x, canvas.height / 2 - distance / 2, 1, distance);
             ctx.globalAlpha = 1.0;
-
             let raydirX = Math.cos(((x / 1600 * 90) * this.pov) * (Math.PI / 180)); //angle to x y pos
             let raydirY = Math.sin(((x / 1600 * 90) * this.pov) * (Math.PI / 180));
         }
