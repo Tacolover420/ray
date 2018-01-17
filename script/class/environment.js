@@ -13,6 +13,10 @@ class Environmemt {
             [1, 1, 1, 1, 1, 1]
         ];
         this.sprite = [
+            new Sprite(60, 60, Texture.Sprite.Armor),
+            new Sprite(240, 240, Texture.Sprite.Pillar),
+            new Sprite(60, 240, Texture.Sprite.Plant),
+            new Sprite(240, 60, Texture.Sprite.Barrel),
             new Sprite(150, 150, Texture.Sprite.Table)
         ];
     }
@@ -42,9 +46,15 @@ class Environmemt {
     }
 
     renderSkyBox() {
-        ctx.drawImage(Load.Sky, 1920 / 360 * player.pod, 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
-        if(player.pod > 270){
-            ctx.drawImage(Load.Sky, 1920 / 360 * (player.pod - 360), 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
+        if(pod < 0) {
+            pod += 360;
+        }
+        if(pod > 360) {
+            pod -= 360;
+        }
+        ctx.drawImage(Load.Sky, 1920 / 360 * pod, 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
+        if(pod > 270){
+            ctx.drawImage(Load.Sky, 1920 / 360 * (pod - 360), 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
         }
         ctx.fillStyle = Texture.Color.Ground;
         ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);

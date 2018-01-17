@@ -1,6 +1,7 @@
 let environment = new Environmemt(6, 6);
 let minimap = new Minimap(200);
 let player = new Player(100, 100, 0);
+let pod = player.pod;
 
 setTimeout(function() {
     update();

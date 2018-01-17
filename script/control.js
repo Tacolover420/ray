@@ -1,6 +1,9 @@
 let movement = false;
+let turn = false;
 let interval;
+let intervalTurn;
 let updatespeed = 10;
+let speed = 2;
 let lastMoveX = 0;
 
 document.addEventListener('pointerlockchange', lockChangeLog, false);
@@ -26,6 +29,19 @@ document.onkeydown = function(event) {
                 break;
         }
     }
+    if(turn == false) {
+        let speed = 3;
+        switch(event.keyCode) {
+            case 39: //rechts
+                intervalTurn = setInterval("player.pod += speed; pod += speed; update();", updatespeed);
+                turn = true;
+                break;
+            case 37: //links
+                intervalTurn = setInterval("player.pod -= speed; pod -= speed; update();", updatespeed);
+                turn = true;
+                break;
+        }
+    }
     if(event.keyCode == 70) { //f -> enter/leave fullscreen
         if(screen == false) {
             launchIntoFullscreen(document.documentElement);
@@ -42,6 +58,10 @@ document.onkeyup = function(event) {
     if(movement == true && (event.keyCode == 87 || event.keyCode == 68 || event.keyCode == 83 || event.keyCode == 65)) {
         clearInterval(interval);
         movement = false;
+    }
+    if(turn == true && (event.keyCode == 37 || event.keyCode == 39)) {
+        clearInterval(intervalTurn);
+        turn = false;
     }
 }
 
@@ -66,17 +86,12 @@ function launchIntoFullscreen(element) {
 
 function mousemoveCallback(event) {
     let move = event.movementX;
-    if (move > lastMoveX +300 || move < lastMoveX - 300) {
+    if (move > lastMoveX +500 || move < lastMoveX - 500) {
         move = lastMoveX;
     }
     lastMoveX = move;
     player.pod += move / 50; //mouse sensitivity
-    if(player.pod < 0) {
-        player.pod += 360;
-    }
-    if(player.pod > 360) {
-        player.pod -= 360;
-    }
+    pod += move / 50;
     update();
 }
 

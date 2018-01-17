@@ -12,16 +12,16 @@ class Sprite {
                 return Load.Armor
                 break;
             case Texture.Sprite.Light:
-                return Load.Armor
+                return Load.Light
                 break;
             case Texture.Sprite.Plant:
-                return Load.Armor
+                return Load.Plant
                 break;
             case Texture.Sprite.Barrel:
-                return Load.Armor
+                return Load.Barrel
                 break;
             case Texture.Sprite.Pillar:
-                return Load.Armor
+                return Load.Pillar
                 break;
             default:
                 return Load.Table
