@@ -60,7 +60,7 @@ Load.Barrel.src = "texture/sprite/barrel.png";
 Load.Pillar.src = "texture/sprite/pillar.png";
 
 function getWallSource(type) {
-    switch(type) {
+    switch (type) {
         case Texture.Wall.Wood:
             return Load.Wood
             break;

@@ -7,7 +7,7 @@ class Sprite {
     }
 
     getSource() {
-        switch(this.type) {
+        switch (this.type) {
             case Texture.Sprite.Armor:
                 return Load.Armor
                 break;

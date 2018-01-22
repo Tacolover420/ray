@@ -10,9 +10,9 @@ class Minimap {
         ctx.fillStyle = Texture.Color.Ground;
         ctx.fillRect(0, 0, this.width, this.height);
         ctx.fillStyle = "#000";
-        for(let y = 0; y < environment.height; y++) {
-            for(let x = 0; x < environment.width; x++) {
-                if(environment.grid[y][x] != Texture.Wall.Empty) {
+        for (let y = 0; y < environment.height; y++) {
+            for (let x = 0; x < environment.width; x++) {
+                if (environment.grid[y][x] != Texture.Wall.Empty) {
                    let img = getWallSource(environment.grid[y][x]);
                    ctx.drawImage(img, x * this.blockSurface, y * this.blockSurface, this.blockSurface, this.blockSurface);
                 }

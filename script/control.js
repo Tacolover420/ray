@@ -9,8 +9,8 @@ let lastMoveX = 0;
 document.addEventListener('pointerlockchange', lockChangeLog, false);
 
 document.onkeydown = function(event) {
-    if(movement == false) {
-        switch(event.keyCode) {
+    if (movement == false) {
+        switch (event.keyCode) {
             case 87: //w
                 interval = setInterval("player.move(90)", updatespeed);
                 movement = true;
@@ -29,9 +29,9 @@ document.onkeydown = function(event) {
                 break;
         }
     }
-    if(turn == false) {
+    if (turn == false) {
         let speed = 3;
-        switch(event.keyCode) {
+        switch (event.keyCode) {
             case 39: //rechts
                 intervalTurn = setInterval("player.pod += speed; pod += speed; update();", updatespeed);
                 turn = true;
@@ -42,12 +42,12 @@ document.onkeydown = function(event) {
                 break;
         }
     }
-    if(event.keyCode == 70) { //f -> enter/leave fullscreen
-        if(screen == false) {
+    if (event.keyCode == 70) { //f -> enter/leave fullscreen
+        if (screen == false) {
             launchIntoFullscreen(document.documentElement);
             screen = true;
         }
-        else{
+        else {
             exitFullscreen();
             screen = false;
         }
@@ -55,11 +55,11 @@ document.onkeydown = function(event) {
 }
 
 document.onkeyup = function(event) {
-    if(movement == true && (event.keyCode == 87 || event.keyCode == 68 || event.keyCode == 83 || event.keyCode == 65)) {
+    if (movement == true && (event.keyCode == 87 || event.keyCode == 68 || event.keyCode == 83 || event.keyCode == 65)) {
         clearInterval(interval);
         movement = false;
     }
-    if(turn == true && (event.keyCode == 37 || event.keyCode == 39)) {
+    if (turn == true && (event.keyCode == 37 || event.keyCode == 39)) {
         clearInterval(intervalTurn);
         turn = false;
     }
@@ -70,16 +70,16 @@ canvas.onclick = function() {
 }
 
 function launchIntoFullscreen(element) {
-    if(element.requestFullscreen) {
+    if (element.requestFullscreen) {
         element.requestFullscreen();
     }
-    else if(element.mozRequestFullScreen) {
+    else if (element.mozRequestFullScreen) {
         element.mozRequestFullScreen();
     }
-    else if(element.webkitRequestFullscreen) {
+    else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
     }
-    else if(element.msRequestFullscreen) {
+    else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
     }
 }
@@ -96,10 +96,10 @@ function mousemoveCallback(event) {
 }
 
 function exitFullscreen() {
-    if(document.exitFullscreen) {
+    if (document.exitFullscreen) {
         document.exitFullscreen();
     }
-    else if(document.mozCancelFullScreen) {
+    else if (document.mozCancelFullScreen) {
         document.mozCancelFullScreen();
     }
     else if (document.webkitExitFullscreen) {
@@ -108,7 +108,7 @@ function exitFullscreen() {
 }
 
 function lockChangeLog() {
-    if(document.pointerLockElement == canvas) {
+    if (document.pointerLockElement == canvas) {
         document.addEventListener("mousemove", mousemoveCallback, false);
     }
     else {
