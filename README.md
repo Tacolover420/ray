@@ -1,5 +1,4 @@
 # Raycasting
-## redone with more swag
 
 [Play It](https://nichtgian.github.io/ray/)
 
@@ -10,7 +9,6 @@
 - Charakter / Weapon customisation
 - Host private Lobbys / Gamemodes
 - Friends / Crew system
-
 
 ## Features
 
