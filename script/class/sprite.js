@@ -8,23 +8,23 @@ class Sprite {
 
     getSource() {
         switch (this.type) {
-            case Texture.Sprite.Armor:
-                return Load.Armor
+            case Texture.Sprite.Armor.Material:
+                return Texture.Sprite.Armor.Load;
                 break;
-            case Texture.Sprite.Light:
-                return Load.Light
+            case Texture.Sprite.Light.Material:
+                return Texture.Sprite.Light.Load;
                 break;
-            case Texture.Sprite.Plant:
-                return Load.Plant
+            case Texture.Sprite.Plant.Material:
+                return Texture.Sprite.Plant.Load;
                 break;
-            case Texture.Sprite.Barrel:
-                return Load.Barrel
+            case Texture.Sprite.Barrel.Material:
+                return Texture.Sprite.Barrel.Load;
                 break;
-            case Texture.Sprite.Pillar:
-                return Load.Pillar
+            case Texture.Sprite.Pillar.Material:
+                return Texture.Sprite.Pillar.Load;
                 break;
             default:
-                return Load.Table
+                return Texture.Sprite.Table.Load;
         }
     }
 }

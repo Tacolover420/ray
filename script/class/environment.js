@@ -13,11 +13,11 @@ class Environmemt {
             [1, 1, 1, 1, 1, 1]
         ];
         this.sprite = [
-            new Sprite(60, 60, Texture.Sprite.Armor),
-            new Sprite(240, 240, Texture.Sprite.Pillar),
-            new Sprite(60, 240, Texture.Sprite.Plant),
-            new Sprite(240, 60, Texture.Sprite.Barrel),
-            new Sprite(150, 150, Texture.Sprite.Table)
+            new Sprite(60, 60, Texture.Sprite.Armor.Material),
+            new Sprite(240, 240, Texture.Sprite.Pillar.Material),
+            new Sprite(60, 240, Texture.Sprite.Plant.Material),
+            new Sprite(240, 60, Texture.Sprite.Barrel.Material),
+            new Sprite(150, 150, Texture.Sprite.Table.Material)
         ];
     }
 
@@ -52,11 +52,11 @@ class Environmemt {
         if (pod > 360) {
             pod -= 360;
         }
-        ctx.drawImage(Load.Sky, 1920 / 360 * pod, 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
+        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * pod, 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
         if (pod > 270) {
-            ctx.drawImage(Load.Sky, 1920 / 360 * (pod - 360), 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
+            ctx.drawImage(Texture.Material.Sky, 1920 / 360 * (pod - 360), 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
         }
-        ctx.fillStyle = Texture.Color.Ground;
+        ctx.fillStyle = Texture.Material.Ground;
         ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
     }
 
@@ -69,7 +69,7 @@ class Environmemt {
             do {
                 let rayx = player.x + distance * Math.cos(ray * (Math.PI / 180));
                 let rayy = player.y + distance * Math.sin(ray * (Math.PI / 180));
-                if (this.grid[Math.floor(rayx / this.block)][Math.floor(rayy / this.block)] != Texture.Wall.Empty) {
+                if (this.grid[Math.floor(rayx / this.block)][Math.floor(rayy / this.block)] != Texture.Wall.Empty.Material) {
                     distance = Math.sqrt(Math.pow(player.x - rayx, 2) + Math.pow(player.y - rayy, 2));
                     offset = Math.floor(rayx % 64);
                     if (Math.floor(rayx % 64) == 0 || Math.floor((rayx + 1) % 64) == 0) {
@@ -97,7 +97,7 @@ class Environmemt {
                 ctx.fillRect(x, display.height / 2 - distance / 2, 1, distance); //base coloring for shadow (x pos, center rectangle, width of rectangle (display / resolution = 1), height of rectangle
                 ctx.globalAlpha = 0.75; //shadow -> make texture mix with black background -> darker
             }*/
-            ctx.drawImage(Load.Stone, offset / 64 * Load.Stone.width, 0, Load.Stone.width / (canvas.width / 2), Load.Stone.height, x, canvas.height / 2 - distance / 2, 1, distance);
+            ctx.drawImage(Texture.Wall.Stone.Load, offset / 64 * Texture.Wall.Stone.Load.width, 0, Texture.Wall.Stone.Load.width / (canvas.width / 2), Texture.Wall.Stone.Load.height, x, canvas.height / 2 - distance / 2, 1, distance);
             ctx.globalAlpha = 1.0;
             let raydirX = Math.cos(((x / 1600 * 90) * this.pov) * (Math.PI / 180)); //angle to x y pos
             let raydirY = Math.sin(((x / 1600 * 90) * this.pov) * (Math.PI / 180));
