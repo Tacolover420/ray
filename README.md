@@ -12,7 +12,7 @@
 
 ## Features
 
-- Raycasting Engine in JavaScript
+- Raycasting, Sandbox Engine in JavaScript
 - Renders textured Walls and Sprites (2D Objects)
 
 > Project is still in early development!

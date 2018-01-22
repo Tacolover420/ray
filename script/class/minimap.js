@@ -1,7 +1,6 @@
 class Minimap {
     constructor(width) {
         this.width = width;
-        //this.blockSurface = environment.width / environment.block * width;
         this.blockSurface = width / (environment.width * environment.block) * environment.block;
         this.height = this.blockSurface * environment.height;
     }
