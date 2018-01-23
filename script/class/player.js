@@ -8,6 +8,18 @@ class Player {
         this.fat = 15;
     }
 
+    turn(speed) {
+        if (this.pod >= 360) {
+            this.pod -= 360;
+        }
+        if (this.pod < 0) {
+            this.pod += 360;
+        }
+        player.pod += speed;
+        pod += speed;
+        update();
+    }
+
     move(deg) {
         let deviation = this.fat / 2;
         let block = environment.block;

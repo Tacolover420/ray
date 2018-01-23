@@ -27,17 +27,25 @@ document.onkeydown = function(event) {
                 interval = setInterval("player.move(0)", updatespeed);
                 movement = true;
                 break;
+            case 38: //up
+                interval = setInterval("player.move(90)", updatespeed);
+                movement = true;
+                break;
+            case 40: //down
+                interval = setInterval("player.move(270)", updatespeed);
+                movement = true;
+                break;
         }
     }
     if (turn == false) {
         let speed = 3;
         switch (event.keyCode) {
             case 39: //rechts
-                intervalTurn = setInterval("player.pod += speed; pod += speed; update();", updatespeed);
+                intervalTurn = setInterval("player.turn(speed);", updatespeed);
                 turn = true;
                 break;
             case 37: //links
-                intervalTurn = setInterval("player.pod -= speed; pod -= speed; update();", updatespeed);
+                intervalTurn = setInterval("player.turn(-speed);", updatespeed);
                 turn = true;
                 break;
         }
@@ -55,7 +63,7 @@ document.onkeydown = function(event) {
 }
 
 document.onkeyup = function(event) {
-    if (movement == true && (event.keyCode == 87 || event.keyCode == 68 || event.keyCode == 83 || event.keyCode == 65)) {
+    if (movement == true && (event.keyCode == 87 || event.keyCode == 68 || event.keyCode == 83 || event.keyCode == 65 ||  event.keyCode == 40 ||  event.keyCode == 38)) {
         clearInterval(interval);
         movement = false;
     }
@@ -91,6 +99,12 @@ function mousemoveCallback(event) {
     }
     lastMoveX = move;
     player.pod += move / 50; //mouse sensitivity
+    if (player.pod >= 360) {
+        player.pod -= 360;
+    }
+    if (player.pod < 0) {
+        player.pod += 360;
+    }
     pod += move / 50;
     update();
 }

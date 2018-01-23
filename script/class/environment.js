@@ -5,12 +5,39 @@ class Environmemt {
         this.block = 50;
         this.transform = 25000;
         this.grid = [
-            [1, 1, 1, 1, 1, 1],
-            [1, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1]
+            //11x11
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1],
+            [1, 1, 0, 0, 2, 2, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+            //20x20
+            /*[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1]*/
         ];
         this.sprite = [
             new Sprite(60, 60, Texture.Sprite.Armor.Material),
@@ -41,6 +68,7 @@ class Environmemt {
             angle = Math.asin(dist.sprite / distance) * 180 / Math.PI;
             drawx = (-pod + 180 + 45 + angle) / player.fov * canvas.width - size / 2;
         }
+       // console.log(drawx);
         let drawy = canvas.height / 2 - size / 2;
         ctx.drawImage(sprite.source, drawx , drawy, size, size);
     }
@@ -65,11 +93,13 @@ class Environmemt {
         for (let x = 0; x < resolution; x++) { //every 2nd px gets scanned
             let ray = player.pod + (-player.fov / 2 + player.fov / resolution * x);
             let distance = 0, offset = 0;
+            let texture;
             let hit = false, shadow = false;
             do {
                 let rayx = player.x + distance * Math.cos(ray * (Math.PI / 180));
                 let rayy = player.y + distance * Math.sin(ray * (Math.PI / 180));
-                if (this.grid[Math.floor(rayx / this.block)][Math.floor(rayy / this.block)] != Texture.Wall.Empty.Material) {
+                if (this.grid[Math.floor(rayy / this.block)][Math.floor(rayx / this.block)] != Texture.Wall.Empty.Material) {
+                    texture = getWallSource(this.grid[Math.floor(rayy / this.block)][Math.floor(rayx / this.block)]);
                     distance = Math.sqrt(Math.pow(player.x - rayx, 2) + Math.pow(player.y - rayy, 2));
                     offset = Math.floor(rayx % 64);
                     if (Math.floor(rayx % 64) == 0 || Math.floor((rayx + 1) % 64) == 0) {
@@ -90,14 +120,14 @@ class Environmemt {
                 if (distance > 10000) {
                     hit = true;
                 }
-            } while(!hit);
+            } while (!hit);
             distance = Math.floor(this.transform / distance);
             /*if(shadow){
                 ctx.fillStyle = "#000";
                 ctx.fillRect(x, display.height / 2 - distance / 2, 1, distance); //base coloring for shadow (x pos, center rectangle, width of rectangle (display / resolution = 1), height of rectangle
                 ctx.globalAlpha = 0.75; //shadow -> make texture mix with black background -> darker
             }*/
-            ctx.drawImage(Texture.Wall.Stone.Load, offset / 64 * Texture.Wall.Stone.Load.width, 0, Texture.Wall.Stone.Load.width / (canvas.width / 2), Texture.Wall.Stone.Load.height, x, canvas.height / 2 - distance / 2, 1, distance);
+            ctx.drawImage(texture, offset / 64 * texture.width, 0, texture.width / (canvas.width / 2), texture.height, x, canvas.height / 2 - distance / 2, 1, distance);
             ctx.globalAlpha = 1.0;
             let raydirX = Math.cos(((x / 1600 * 90) * this.pov) * (Math.PI / 180)); //angle to x y pos
             let raydirY = Math.sin(((x / 1600 * 90) * this.pov) * (Math.PI / 180));
