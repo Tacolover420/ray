@@ -4,7 +4,6 @@ let interval;
 let intervalTurn;
 let updatespeed = 10;
 let speed = 2;
-let lastMoveX = 0;
 
 document.addEventListener('pointerlockchange', lockChangeLog, false);
 
@@ -94,18 +93,13 @@ function launchIntoFullscreen(element) {
 
 function mousemoveCallback(event) {
     let move = event.movementX;
-    if (move > lastMoveX +500 || move < lastMoveX - 500) {
-        move = lastMoveX;
-    }
-    lastMoveX = move;
-    player.pod += move / 50; //mouse sensitivity
-    if (player.pod >= 360) {
+    player.pod += move; //mouse sensitivity
+    /*if (player.pod >= 360) {
         player.pod -= 360;
     }
     if (player.pod < 0) {
         player.pod += 360;
-    }
-    pod += move / 50;
+    }*/
     update();
 }
 

@@ -5,7 +5,7 @@ class Environmemt {
         this.block = 50;
         this.transform = 25000;
         this.grid = [
-            //11x11
+            //11x11 -> 467 121 to 900 000
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1],
@@ -17,8 +17,9 @@ class Environmemt {
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-            //20x20
-            /*[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1],
+            //20x20 -> 1 898 757
+            /*
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -37,13 +38,14 @@ class Environmemt {
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1]*/
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1]
+            */
         ];
         this.sprite = [
-            new Sprite(60, 60, Texture.Sprite.Armor.Material),
+           /* new Sprite(60, 60, Texture.Sprite.Armor.Material),
             new Sprite(240, 240, Texture.Sprite.Pillar.Material),
             new Sprite(60, 240, Texture.Sprite.Plant.Material),
-            new Sprite(240, 60, Texture.Sprite.Barrel.Material),
+            new Sprite(240, 60, Texture.Sprite.Barrel.Material),*/
             new Sprite(150, 150, Texture.Sprite.Table.Material)
         ];
     }
@@ -68,18 +70,13 @@ class Environmemt {
             angle = Math.asin(dist.sprite / distance) * 180 / Math.PI;
             drawx = (-pod + 180 + 45 + angle) / player.fov * canvas.width - size / 2;
         }
-       // console.log(drawx);
+       console.log(angle +" "+ drawx +" "+ pod);
         let drawy = canvas.height / 2 - size / 2;
         ctx.drawImage(sprite.source, drawx , drawy, size, size);
     }
 
     renderSkyBox() {
-        if (pod < 0) {
-            pod += 360;
-        }
-        if (pod > 360) {
-            pod -= 360;
-        }
+        let pod = player.pod;
         ctx.drawImage(Texture.Material.Sky, 1920 / 360 * pod, 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
         if (pod > 270) {
             ctx.drawImage(Texture.Material.Sky, 1920 / 360 * (pod - 360), 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
@@ -90,7 +87,7 @@ class Environmemt {
 
     renderBlock() {
         let resolution = canvas.width;
-        for (let x = 0; x < resolution; x++) { //every 2nd px gets scanned
+        for (let x = 0; x < resolution; x++) {
             let ray = player.pod + (-player.fov / 2 + player.fov / resolution * x);
             let distance = 0, offset = 0;
             let texture;
@@ -116,7 +113,7 @@ class Environmemt {
                     }*/
                     hit = true;
                 }
-                distance += 0.5;
+                distance += 2;
                 if (distance > 10000) {
                     hit = true;
                 }

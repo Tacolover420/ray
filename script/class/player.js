@@ -9,14 +9,13 @@ class Player {
     }
 
     turn(speed) {
-        if (this.pod >= 360) {
+        if (this.pod >= 180) {
             this.pod -= 360;
         }
-        if (this.pod < 0) {
+        if (this.pod < -180) {
             this.pod += 360;
         }
         player.pod += speed;
-        pod += speed;
         update();
     }
 

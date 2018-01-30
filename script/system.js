@@ -1,6 +1,7 @@
 /*ESCADA V.21*/
 let canvas = document.getElementById("display");
 let ctx = canvas.getContext("2d");
+
 ctx.imageSmoothingEnabled = false;
 
 Texture.Material.Sky.src = "texture/sky.jpg";
@@ -18,3 +19,5 @@ Texture.Sprite.Light.Load.src = "texture/sprite/light.png";
 Texture.Sprite.Plant.Load.src = "texture/sprite/plant.png";
 Texture.Sprite.Barrel.Load.src = "texture/sprite/barrel.png";
 Texture.Sprite.Pillar.Load.src = "texture/sprite/pillar.png";
+
+Texture.Sprite.Pillar.Load.onload = function() { update(); }
