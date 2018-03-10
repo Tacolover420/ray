@@ -3,53 +3,69 @@ let turn = false;
 let interval;
 let intervalTurn;
 let updatespeed = 10;
-let speed = 2;
 
 document.addEventListener('pointerlockchange', lockChangeLog, false);
 
+/*key down event*/
 document.onkeydown = function(event) {
     if (movement == false) {
         switch (event.keyCode) {
-            case 87: //w
+            /*w key*/
+            case 87:
                 interval = setInterval("player.move(90)", updatespeed);
                 movement = true;
                 break;
-            case 68: //a
+
+            /*a key*/
+            case 68:
                 interval = setInterval("player.move(180)", updatespeed);
                 movement = true;
                 break;
-            case 83: //s
+
+            /*s key*/
+            case 83:
                 interval = setInterval("player.move(270)", updatespeed);
                 movement = true;
                 break;
-            case 65: //d
+
+            /*d key*/
+            case 65:
                 interval = setInterval("player.move(0)", updatespeed);
                 movement = true;
                 break;
-            case 38: //up
+
+            /*up arrow key*/
+            case 38:
                 interval = setInterval("player.move(90)", updatespeed);
                 movement = true;
                 break;
-            case 40: //down
+
+            /*down arrow key*/
+            case 40:
                 interval = setInterval("player.move(270)", updatespeed);
                 movement = true;
                 break;
         }
     }
+
     if (turn == false) {
-        let speed = 3;
         switch (event.keyCode) {
-            case 39: //rechts
-                intervalTurn = setInterval("player.turn(speed);", updatespeed);
+            /*right arrow key*/
+            case 39:
+                intervalTurn = setInterval("player.turn(3);", updatespeed);
                 turn = true;
                 break;
-            case 37: //links
-                intervalTurn = setInterval("player.turn(-speed);", updatespeed);
+
+            /*left arrow key*/
+            case 37:
+                intervalTurn = setInterval("player.turn(-3);", updatespeed);
                 turn = true;
                 break;
         }
     }
-    if (event.keyCode == 70) { //f -> enter/leave fullscreen
+
+    /*F, enter and leave fullscreen*/
+    if (event.keyCode == 70) {
         if (screen == false) {
             launchIntoFullscreen(document.documentElement);
             screen = true;
@@ -61,6 +77,7 @@ document.onkeydown = function(event) {
     }
 }
 
+/*key up event*/
 document.onkeyup = function(event) {
     if (movement == true && (event.keyCode == 87 || event.keyCode == 68 || event.keyCode == 83 || event.keyCode == 65 ||  event.keyCode == 40 ||  event.keyCode == 38)) {
         clearInterval(interval);
@@ -72,54 +89,22 @@ document.onkeyup = function(event) {
     }
 }
 
+/*onclick in canvas to get pointerlock*/
 canvas.onclick = function() {
     canvas.requestPointerLock();
 }
 
-function launchIntoFullscreen(element) {
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    }
-    else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-    }
-    else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-    }
-    else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen();
-    }
-}
-
+/*turn around*/
 function mousemoveCallback(event) {
-    let move = event.movementX;
-    player.pod += move; //mouse sensitivity
-    /*if (player.pod >= 360) {
-        player.pod -= 360;
+    let turn = 3;
+    if (event.movementX < 0) {
+        turn *= -1;
     }
-    if (player.pod < 0) {
-        player.pod += 360;
-    }*/
+    if (event.movementX == 0) {
+        turn = 0;
+    }
+    player.turn(turn);
     update();
 }
 
-function exitFullscreen() {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    }
-    else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-    }
-    else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    }
-}
 
-function lockChangeLog() {
-    if (document.pointerLockElement == canvas) {
-        document.addEventListener("mousemove", mousemoveCallback, false);
-    }
-    else {
-        document.removeEventListener("mousemove", mousemoveCallback, false);
-    }
-}

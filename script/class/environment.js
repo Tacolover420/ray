@@ -1,46 +1,10 @@
 class Environmemt {
-    constructor(width, height) {
-        this.width = width;
-        this.height = height;
+    constructor(grid) {
         this.block = 50;
         this.transform = 25000;
-        this.grid = [
-            //11x11 -> 467 121 to 900 000
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1],
-            [1, 1, 0, 0, 2, 2, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-            //20x20 -> 1 898 757
-            /*
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 , 1, 1]
-            */
-        ];
+        this.grid = grid;
+        this.width = this.grid[0].length;
+        this.height = this.grid.length;
         this.sprite = [
            /* new Sprite(60, 60, Texture.Sprite.Armor.Material),
             new Sprite(240, 240, Texture.Sprite.Pillar.Material),
@@ -51,36 +15,36 @@ class Environmemt {
     }
 
     renderSprite(sprite) {
-        let cross = {x: sprite.x, y: player.y};
-        let dist = {player: getDistance(player.x, player.y, cross.x, cross.y), sprite: getDistance(sprite.x, sprite.y, cross.x, cross.y)};
+        /*distance between player and sprite*/
         let distance = getDistance(player.x, player.y, sprite.x, sprite.y);
+
+        /*size of sprite, calculated from distance divided by a const*/
         let size = this.transform / distance;
-        let pod = player.pod;
-        let angle = Math.atan(dist.sprite / dist.player) * 180 / Math.PI;
-        let drawx = (-pod + 45 + angle) / player.fov * canvas.width - size / 2;
-        if (player.x < sprite.x && player.y > sprite.y) { //1. Quadrant
-            angle = Math.asin(dist.sprite / distance) * 180 / Math.PI;
-            drawx = (-pod + 45 - angle) / player.fov * canvas.width - size / 2;
-        }
-        else if (player.x > sprite.x && player.y < sprite.y) { //3. Quadrant
-            angle = Math.asin(dist.sprite / distance) * 180 / Math.PI;
-            drawx = (-pod + 180 + 45 - angle) / player.fov * canvas.width - size / 2;
-        }
-        else if (player.x > sprite.x && player.y > sprite.y) { //2. Quadrant
-            angle = Math.asin(dist.sprite / distance) * 180 / Math.PI;
-            drawx = (-pod + 180 + 45 + angle) / player.fov * canvas.width - size / 2;
-        }
-       console.log(angle +" "+ drawx +" "+ pod);
+
+        /*an imaginary point going out from player in direction of pod */
+        let podPoint = {x: player.x + 100  * Math.cos(player.pod * Math.PI / 180), y: player.y + 100 * Math.sin(player.pod * Math.PI / 180)};
+
+        /*p1 player, p2 sprite, p3 podPoint, calculates angle from two lines with same origin*/
+        let angle = (Math.atan2(sprite.y - player.y, sprite.x - player.x) - Math.atan2(podPoint.y - player.y, podPoint.x - player.x)) * 180 /Math.PI;
+
+        /*position on canvas x*/
+        let drawx = (canvas.width / 90 * (angle + 45));
+
+        /*position on canvas y*/
         let drawy = canvas.height / 2 - size / 2;
+
         ctx.drawImage(sprite.source, drawx , drawy, size, size);
+        console.log(/*"pod" + pod + " podPoint" + podPoint.x + " " + podPoint.y + */" angle" + angle + " drawx" +drawx);
     }
 
-    renderSkyBox() {
-        let pod = player.pod;
-        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * pod, 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
-        if (pod > 270) {
-            ctx.drawImage(Texture.Material.Sky, 1920 / 360 * (pod - 360), 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
-        }
+    renderSky() {
+        /*draw image*/
+        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * player.pod, 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
+
+        /*draw image next to first image*/
+        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * (player.pod - 360), 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
+
+        /*draw a ground*/
         ctx.fillStyle = Texture.Material.Ground;
         ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
     }

@@ -1,9 +1,11 @@
-/*ESCADA V.21*/
+/*canvas and contex*/
 let canvas = document.getElementById("display");
 let ctx = canvas.getContext("2d");
 
+/*disable image blur*/
 ctx.imageSmoothingEnabled = false;
 
+/*wall and sprite texture sources*/
 Texture.Material.Sky.src = "texture/sky.jpg";
 Texture.Wall.Stone.Load.src = "texture/wall/stone.jpg";
 Texture.Wall.Wood.Load.src = "texture/wall/wood.jpg";
@@ -20,4 +22,7 @@ Texture.Sprite.Plant.Load.src = "texture/sprite/plant.png";
 Texture.Sprite.Barrel.Load.src = "texture/sprite/barrel.png";
 Texture.Sprite.Pillar.Load.src = "texture/sprite/pillar.png";
 
-Texture.Sprite.Pillar.Load.onload = function() { update(); }
+/*last image loaded*/
+Texture.Sprite.Pillar.Load.onload = function() {
+    update();
+}

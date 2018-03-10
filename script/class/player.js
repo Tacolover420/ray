@@ -9,10 +9,11 @@ class Player {
     }
 
     turn(speed) {
-        if (this.pod >= 180) {
+        /*turn around*/
+        if (this.pod >= 360) {
             this.pod -= 360;
         }
-        if (this.pod < -180) {
+        if (this.pod < 0) {
             this.pod += 360;
         }
         player.pod += speed;
@@ -20,10 +21,17 @@ class Player {
     }
 
     move(deg) {
+        /*block player early*/
         let deviation = this.fat / 2;
-        let block = environment.block;
+
+        /*how big a block is, to calculate current standing block*/
+        let block = environment.block
+
+        /*new calculated x, y coordinates*/
         this.x += Math.sin((this.pod + deg) * Math.PI / 180) * this.speed;
         this.y -= Math.cos((this.pod + deg) * Math.PI / 180) * this.speed;
+
+        /*if player walks inside a block, walk back*/
         if (environment.grid[Math.floor((this.y + deviation) / block)][Math.floor((this.x + deviation) / block)] != Texture.Wall.Empty.Material ||
             environment.grid[Math.floor((this.y - deviation) / block)][Math.floor((this.x - deviation) / block)] != Texture.Wall.Empty.Material ||
             environment.grid[Math.floor((this.y + deviation) / block)][Math.floor((this.x - deviation) / block)] != Texture.Wall.Empty.Material ||

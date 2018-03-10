@@ -1,0 +1,10 @@
+Get distance between two points:
+
+LENGTH = sqrt[(X1 - X2)2 + (Y1 - Y2)2]
+
+Then get angle: ANGLE = cos-1[(X2-X1)/LENGTH]
+
+If Y1 > Y2 then 
+ANGLE = 2PI - ANGLE
+
+where 2PI is 360 degrees

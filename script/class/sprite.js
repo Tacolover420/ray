@@ -7,6 +7,7 @@ class Sprite {
     }
 
     getSource() {
+        /*returns sprite image to render it*/
         switch (this.type) {
             case Texture.Sprite.Armor.Material:
                 return Texture.Sprite.Armor.Load;
@@ -27,10 +28,4 @@ class Sprite {
                 return Texture.Sprite.Table.Load;
         }
     }
-}
-
-function getDistance(x1, y1, x2, y2) {
-    let dx = x1 - x2;
-    let dy = y1 - y2;
-    return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 }
