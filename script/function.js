@@ -43,3 +43,17 @@ function getDistance(x1, y1, x2, y2) {
     let dy = y1 - y2;
     return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 }
+
+/*compares distances of sprites (draw further away first)*/
+function compareDistance(a, b) {
+    let distA = a.distance;
+    let distB = b.distance;
+
+    let comparison = 0;
+    if (distA < distB) {
+        comparison = 1;
+    } else if (distA > distB) {
+        comparison = -1;
+    }
+    return comparison;
+}

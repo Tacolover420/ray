@@ -6,10 +6,10 @@ class Environmemt {
         this.width = this.grid[0].length;
         this.height = this.grid.length;
         this.sprite = [
-           /* new Sprite(60, 60, Texture.Sprite.Armor.Material),
+            new Sprite(60, 60, Texture.Sprite.Armor.Material),
             new Sprite(240, 240, Texture.Sprite.Pillar.Material),
             new Sprite(60, 240, Texture.Sprite.Plant.Material),
-            new Sprite(240, 60, Texture.Sprite.Barrel.Material),*/
+            new Sprite(240, 60, Texture.Sprite.Barrel.Material),
             new Sprite(150, 150, Texture.Sprite.Table.Material)
         ];
     }
@@ -33,8 +33,10 @@ class Environmemt {
         /*position on canvas y*/
         let drawy = canvas.height / 2 - size / 2;
 
+        /*cheating solution, fix soon*/
         ctx.drawImage(sprite.source, drawx , drawy, size, size);
-        console.log(/*"pod" + pod + " podPoint" + podPoint.x + " " + podPoint.y + */" angle" + angle + " drawx" +drawx);
+        ctx.drawImage(sprite.source, drawx - (4* canvas.width) , drawy, size, size);
+        ctx.drawImage(sprite.source, drawx + (4* canvas.width), drawy, size, size);
     }
 
     renderSky() {

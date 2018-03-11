@@ -29,9 +29,16 @@ function update() {
     minimap.renderBlock();
     minimap.renderPlayer();
 
+    /*sort sprite array*/
+    let sort = [];
+    for (let i = 0; i < environment.sprite.length; i++) {
+        sort[i] = {distance: getDistance(player.x, player.y, environment.sprite[i].x, environment.sprite[i].y), sprite: environment.sprite[i]};
+    }
+    sort.sort(compareDistance);
+
     /*render sprites 3d and minimap*/
     for (let i = 0; i < environment.sprite.length; i++) {
         minimap.renderSprite(environment.sprite[i]);
-        environment.renderSprite(environment.sprite[i]);
+        environment.renderSprite(sort[i].sprite);
     }
 }

@@ -96,13 +96,14 @@ canvas.onclick = function() {
 
 /*turn around*/
 function mousemoveCallback(event) {
-    let turn = 3;
+    let turn = event.movementX / 2;
+    /*let turn = 3;
     if (event.movementX < 0) {
         turn *= -1;
     }
     if (event.movementX == 0) {
         turn = 0;
-    }
+    }*/
     player.turn(turn);
     update();
 }
