@@ -1,7 +1,7 @@
 let environment = new Environmemt([
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1],
+    [2, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1],
     [1, 1, 0, 0, 2, 2, 0, 0, 0, 0, 1],
@@ -41,4 +41,6 @@ function update() {
         minimap.renderSprite(environment.sprite[i]);
         environment.renderSprite(sort[i].sprite);
     }
+
+    environment.wallIndex = [];
 }

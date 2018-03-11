@@ -6,12 +6,13 @@ class Environmemt {
         this.width = this.grid[0].length;
         this.height = this.grid.length;
         this.sprite = [
-            new Sprite(60, 60, Texture.Sprite.Armor.Material),
+            new Sprite(75, 75, Texture.Sprite.Armor.Material),
             new Sprite(240, 240, Texture.Sprite.Pillar.Material),
             new Sprite(60, 240, Texture.Sprite.Plant.Material),
             new Sprite(240, 60, Texture.Sprite.Barrel.Material),
             new Sprite(150, 150, Texture.Sprite.Table.Material)
         ];
+        this.wallIndex = [];
     }
 
     renderSprite(sprite) {
@@ -29,14 +30,27 @@ class Environmemt {
 
         /*position on canvas x*/
         let drawx = (canvas.width / 90 * (angle + 45));
+        drawx = canvas.width / 90 * (angle + 45) ;
 
         /*position on canvas y*/
         let drawy = canvas.height / 2 - size / 2;
 
-        /*cheating solution, fix soon*/
+        /*lil cheating solution*/
+        if (drawx < - (3* canvas.width)) {
+            drawx += (4* canvas.width);
+        }
+        else if (drawx > (3* canvas.width)) {
+            drawx -= (4* canvas.width);
+        }
+
+        /*draw image*/
         ctx.drawImage(sprite.source, drawx , drawy, size, size);
-        ctx.drawImage(sprite.source, drawx - (4* canvas.width) , drawy, size, size);
-        ctx.drawImage(sprite.source, drawx + (4* canvas.width), drawy, size, size);
+
+        /*for every y pixel of sprite*/
+        /*for (let i = 0; i < sprite.source.width; i++) {
+            ctx.drawImage(sprite.source, i, 0, 1, sprite.source.height, drawx + i, drawy, size / sprite.source.width, size);
+
+        }*/
     }
 
     renderSky() {
@@ -90,6 +104,7 @@ class Environmemt {
                 ctx.fillRect(x, display.height / 2 - distance / 2, 1, distance); //base coloring for shadow (x pos, center rectangle, width of rectangle (display / resolution = 1), height of rectangle
                 ctx.globalAlpha = 0.75; //shadow -> make texture mix with black background -> darker
             }*/
+            this.wallIndex.push(distance);
             ctx.drawImage(texture, offset / 64 * texture.width, 0, texture.width / (canvas.width / 2), texture.height, x, canvas.height / 2 - distance / 2, 1, distance);
             ctx.globalAlpha = 1.0;
             let raydirX = Math.cos(((x / 1600 * 90) * this.pov) * (Math.PI / 180)); //angle to x y pos
