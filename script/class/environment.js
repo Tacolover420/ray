@@ -10,7 +10,9 @@ class Environmemt {
             new Sprite(240, 240, Texture.Sprite.Pillar.Material),
             new Sprite(60, 240, Texture.Sprite.Plant.Material),
             new Sprite(240, 60, Texture.Sprite.Barrel.Material),
-            new Sprite(150, 150, Texture.Sprite.Table.Material)
+            new Sprite(125, 325, Texture.Sprite.Table.Material),
+            new Sprite(350, 350, Texture.Sprite.Table.Material),
+            new Sprite(450, 150, Texture.Sprite.Table.Material)
         ];
         this.wallIndex = [];
     }
@@ -28,9 +30,16 @@ class Environmemt {
         /*p1 player, p2 sprite, p3 podPoint, calculates angle from two lines with same origin*/
         let angle = (Math.atan2(sprite.y - player.y, sprite.x - player.x) - Math.atan2(podPoint.y - player.y, podPoint.x - player.x)) * 180 /Math.PI;
 
+        if (angle < 360) {
+            angle += 360;
+        }
+
+        if (angle > 360) {
+            angle -= 360;
+        }
+
         /*position on canvas x*/
-        let drawx = (canvas.width / 90 * (angle + 45));
-        drawx = canvas.width / 90 * (angle + 45) ;
+        let drawx = canvas.width * 4 / 360 * (angle + 45);
 
         /*position on canvas y*/
         let drawy = canvas.height / 2 - size / 2;
@@ -44,13 +53,13 @@ class Environmemt {
         }
 
         /*draw image*/
-        ctx.drawImage(sprite.source, drawx , drawy, size, size);
+        ctx.drawImage(sprite.source, drawx - size / 2, drawy, size, size);
 
         /*for every y pixel of sprite*/
-        /*for (let i = 0; i < sprite.source.width; i++) {
+        for (let i = 0; i < sprite.source.width; i++) {
+            let pixel =
             ctx.drawImage(sprite.source, i, 0, 1, sprite.source.height, drawx + i, drawy, size / sprite.source.width, size);
-
-        }*/
+        }
     }
 
     renderSky() {

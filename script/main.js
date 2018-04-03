@@ -5,17 +5,17 @@ let environment = new Environmemt([
     [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1],
     [1, 1, 0, 0, 2, 2, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 1],
+    [1, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1],
+    [1, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]);
 let minimap = new Minimap(250);
-let player = new Player(100, 100, 45);
+let player = new Player(100, 100, 270 - 45);
 
 /*future game loop*/
 function update() {
@@ -41,6 +41,9 @@ function update() {
         minimap.renderSprite(environment.sprite[i]);
         environment.renderSprite(sort[i].sprite);
     }
+
+    ctx.fillRect(canvas.width / 2 - 3, canvas.height / 2 - 30, 3 * 2, 30 * 2);
+    ctx.fillRect(canvas.width / 2 - 30, canvas.height / 2 - 3, 30 * 2, 3 * 2);
 
     environment.wallIndex = [];
 }
