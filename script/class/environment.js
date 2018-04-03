@@ -53,12 +53,16 @@ class Environmemt {
         }
 
         /*draw image*/
-        ctx.drawImage(sprite.source, drawx - size / 2, drawy, size, size);
+        //ctx.drawImage(sprite.source, drawx - size / 2, drawy, size, size);
 
         /*for every y pixel of sprite*/
         for (let i = 0; i < sprite.source.width; i++) {
-            let pixel =
-            ctx.drawImage(sprite.source, i, 0, 1, sprite.source.height, drawx + i, drawy, size / sprite.source.width, size);
+            let pixel = size / sprite.source.width;
+            let x = size / sprite.source.width * i;
+            if (this.wallIndex[Math.round(drawx - size / 2 + x)] < distance) {
+                continue;
+            }
+            ctx.drawImage(sprite.source, i, 0, 1, sprite.source.height, drawx - size / 2 + x, drawy, pixel, size);
         }
     }
 
@@ -107,13 +111,13 @@ class Environmemt {
                     hit = true;
                 }
             } while (!hit);
+            this.wallIndex.push(distance);
             distance = Math.floor(this.transform / distance);
             /*if(shadow){
                 ctx.fillStyle = "#000";
                 ctx.fillRect(x, display.height / 2 - distance / 2, 1, distance); //base coloring for shadow (x pos, center rectangle, width of rectangle (display / resolution = 1), height of rectangle
                 ctx.globalAlpha = 0.75; //shadow -> make texture mix with black background -> darker
             }*/
-            this.wallIndex.push(distance);
             ctx.drawImage(texture, offset / 64 * texture.width, 0, texture.width / (canvas.width / 2), texture.height, x, canvas.height / 2 - distance / 2, 1, distance);
             ctx.globalAlpha = 1.0;
             let raydirX = Math.cos(((x / 1600 * 90) * this.pov) * (Math.PI / 180)); //angle to x y pos
