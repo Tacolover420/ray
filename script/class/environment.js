@@ -87,13 +87,15 @@ class Environmemt {
             /*bresenham algorithm raycasting*/
             let ray = this.raycast({x: player.x, y: player.y}, {x: rayx, y: rayy});
 
-            ctx.fillStyle = "#000";
-            ctx.fillRect(x, canvas.height / 2 - ray.distance / 2, 1, ray.distance);
-
-            ctx.drawImage(ray.texture, ray.offset / 64 * ray.texture.width, 0, ray.texture.width / (canvas.width / 2), ray.texture.height, x, canvas.height / 2 - ray.distance / 2, 1, ray.distance);
+            /*draw textured wall*/
+            ctx.drawImage(ray.texture, Math.floor(ray.offset / 50 * ray.texture.width), 0, ray.texture.width / (canvas.width / 2), ray.texture.height, x, canvas.height / 2 - ray.distance / 2, 1, ray.distance);
             ctx.globalAlpha = 1.0;
         }
 
+        this.renderFloor();
+    }
+
+    renderFloor() {
 
     }
 

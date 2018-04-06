@@ -22,7 +22,28 @@ Texture.Sprite.Plant.Load.src = "texture/sprite/plant.png";
 Texture.Sprite.Barrel.Load.src = "texture/sprite/barrel.png";
 Texture.Sprite.Pillar.Load.src = "texture/sprite/pillar.png";
 
-/*last image loaded*/
-Texture.Sprite.Pillar.Load.onload = function() {
+/*load sky texture*/
+Texture.Material.Sky.onload = function() {
     update();
+    console.log("Skybox loaded!");
+};
+
+/*load wall textures*/
+for (let key in Texture.Wall) {
+    if (Texture.Wall.hasOwnProperty(key)) {
+        Texture.Wall[key].Load.onload = function() {
+            update();
+            console.log(key + " loaded!");
+        }
+    }
+}
+
+/*load sprite textures*/
+for (let key in Texture.Sprite) {
+    if (Texture.Sprite.hasOwnProperty(key)) {
+        Texture.Sprite[key].Load.onload = function() {
+            update();
+            console.log(key + " loaded!");
+        }
+    }
 }
