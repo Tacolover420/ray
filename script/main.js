@@ -15,7 +15,7 @@ let environment = new Environmemt([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]);
 let minimap = new Minimap(250);
-let player = new Player(100, 100, 270 - 45);
+let player = new Player(100, 100, 45);
 
 /*future game loop*/
 function update() {

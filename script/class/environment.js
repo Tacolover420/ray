@@ -7,9 +7,9 @@ class Environmemt {
         this.height = this.grid.length;
         this.sprite = [
             new Sprite(75, 75, Texture.Sprite.Armor.Material),
-            new Sprite(240, 240, Texture.Sprite.Pillar.Material),
-            new Sprite(60, 240, Texture.Sprite.Plant.Material),
-            new Sprite(240, 60, Texture.Sprite.Barrel.Material),
+            new Sprite(225, 225, Texture.Sprite.Pillar.Material),
+            new Sprite(75, 225, Texture.Sprite.Plant.Material),
+            new Sprite(225, 75, Texture.Sprite.Barrel.Material),
             new Sprite(125, 325, Texture.Sprite.Table.Material),
             new Sprite(350, 350, Texture.Sprite.Table.Material),
             new Sprite(450, 150, Texture.Sprite.Table.Material)
@@ -52,10 +52,7 @@ class Environmemt {
             drawx -= (4* canvas.width);
         }
 
-        /*draw image*/
-        //ctx.drawImage(sprite.source, drawx - size / 2, drawy, size, size);
-
-        /*for every y pixel of sprite*/
+        /*draw sprite y*/
         for (let i = 0; i < sprite.source.width; i++) {
             let pixel = size / sprite.source.width;
             let x = size / sprite.source.width * i;
@@ -79,49 +76,67 @@ class Environmemt {
     }
 
     renderBlock() {
-        let resolution = canvas.width;
-        for (let x = 0; x < resolution; x++) {
-            let ray = player.pod + (-player.fov / 2 + player.fov / resolution * x);
-            let distance = 0, offset = 0;
-            let texture;
-            let hit = false, shadow = false;
-            do {
-                let rayx = player.x + distance * Math.cos(ray * (Math.PI / 180));
-                let rayy = player.y + distance * Math.sin(ray * (Math.PI / 180));
-                if (this.grid[Math.floor(rayy / this.block)][Math.floor(rayx / this.block)] != Texture.Wall.Empty.Material) {
-                    texture = getWallSource(this.grid[Math.floor(rayy / this.block)][Math.floor(rayx / this.block)]);
-                    distance = Math.sqrt(Math.pow(player.x - rayx, 2) + Math.pow(player.y - rayy, 2));
-                    offset = Math.floor(rayx % 64);
-                    if (Math.floor(rayx % 64) == 0 || Math.floor((rayx + 1) % 64) == 0) {
-                        offset = Math.floor(rayy % 64);
-                    }
-                    if (rayx % 64 > rayy % 64) {
-                        shadow = true;
-                    }
-                    /*if(x == 0){ //distance for minimap -45
-                        distance1 = distance;
-                    }
-                    if(x == resolution - 1){ //distance for minimap +45
-                        distance2 = distance;
-                    }*/
-                    hit = true;
-                }
-                distance += 2;
-                if (distance > 10000) {
-                    hit = true;
-                }
-            } while (!hit);
-            this.wallIndex.push(distance);
-            distance = Math.floor(this.transform / distance);
-            /*if(shadow){
-                ctx.fillStyle = "#000";
-                ctx.fillRect(x, display.height / 2 - distance / 2, 1, distance); //base coloring for shadow (x pos, center rectangle, width of rectangle (display / resolution = 1), height of rectangle
-                ctx.globalAlpha = 0.75; //shadow -> make texture mix with black background -> darker
-            }*/
-            ctx.drawImage(texture, offset / 64 * texture.width, 0, texture.width / (canvas.width / 2), texture.height, x, canvas.height / 2 - distance / 2, 1, distance);
+        for (let x = 0; x <= canvas.width; x++) {
+            /*direction of ray*/
+            let angle = player.pod - 45 + (90 / canvas.width * x);
+
+            /*end point of ray*/
+            let rayx = player.x + 1000 * Math.cos(angle * Math.PI / 180);
+            let rayy = player.y + 1000 * Math.sin(angle * Math.PI / 180);
+
+            /*bresenham algorithm raycasting*/
+            let ray = this.raycast({x: player.x, y: player.y}, {x: rayx, y: rayy});
+
+            ctx.fillStyle = "#000";
+            ctx.fillRect(x, canvas.height / 2 - ray.distance / 2, 1, ray.distance);
+
+            ctx.drawImage(ray.texture, ray.offset / 64 * ray.texture.width, 0, ray.texture.width / (canvas.width / 2), ray.texture.height, x, canvas.height / 2 - ray.distance / 2, 1, ray.distance);
             ctx.globalAlpha = 1.0;
-            let raydirX = Math.cos(((x / 1600 * 90) * this.pov) * (Math.PI / 180)); //angle to x y pos
-            let raydirY = Math.sin(((x / 1600 * 90) * this.pov) * (Math.PI / 180));
+        }
+
+
+    }
+
+    raycast(start, end) {
+        /*difference between start and end point*/
+        let difX = end.x - start.x;
+        let difY = end.y - start.y;
+
+        /*distance*/
+        let dist = Math.abs(difX) + Math.abs(difY);
+
+        /*delta x and y*/
+        let dx = difX / dist;
+        let dy = difY / dist;
+
+        for (let i = 0; i <= Math.ceil(dist); i++) {
+            /*calculated x and y coordinates*/
+            let x = Math.floor(start.x + dx * i);
+            let y = Math.floor(start.y + dy * i);
+
+            /*ray hits solid wall*/
+            if (this.grid[Math.floor(y / this.block)][Math.floor(x / this.block)] != Texture.Wall.Empty.Material) {
+                /*get wall texture*/
+                let texture = getWallSource(this.grid[Math.floor(y / this.block)][Math.floor(x / this.block)]);
+
+                //console.log(x + " " + y);
+
+                /*get distance to wall and save z*/
+                let distance = getDistance(player.x, player.y, x, y);
+                this.wallIndex.push(distance);
+
+                /*scaled wall distance*/
+                distance = this.transform / distance;
+
+                /*get texture offset*/
+                let offset = Math.floor(x % 50);
+                if (Math.floor(x % 50) == 0 || Math.floor((x + 1) % 50) == 0) {
+                    offset = Math.floor(y % 50);
+                }
+
+                return {distance: distance, offset: offset, texture: texture};
+            }
         }
     }
 }
+
