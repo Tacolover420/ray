@@ -33,18 +33,6 @@ document.onkeydown = function(event) {
                 interval = setInterval("player.move(0)", updatespeed);
                 movement = true;
                 break;
-
-            /*up arrow key*/
-            case 38:
-                interval = setInterval("player.move(90)", updatespeed);
-                movement = true;
-                break;
-
-            /*down arrow key*/
-            case 40:
-                interval = setInterval("player.move(270)", updatespeed);
-                movement = true;
-                break;
         }
     }
 
@@ -64,16 +52,28 @@ document.onkeydown = function(event) {
         }
     }
 
-    /*F, enter and leave fullscreen*/
-    if (event.keyCode == 70) {
-        if (screen == false) {
-            launchIntoFullscreen(document.documentElement);
-            screen = true;
-        }
-        else {
-            exitFullscreen();
-            screen = false;
-        }
+    switch (event.keyCode) {
+        /*up arrow key*/
+        case 38:
+            player.look(-10);
+            break;
+
+        /*down arrow key*/
+        case 40:
+            player.look(10);
+            break;
+
+        /*F, enter and leave fullscreen*/
+        case 70:
+            if (screen == false) {
+                launchIntoFullscreen(document.documentElement);
+                screen = true;
+            }
+            else {
+                exitFullscreen();
+                screen = false;
+            }
+            break;
     }
 }
 
@@ -94,10 +94,14 @@ canvas.onclick = function() {
     canvas.requestPointerLock();
 }
 
-/*turn around*/
 function mousemoveCallback(event) {
+    /*turn around*/
     let turn = event.movementX / 2;
     player.turn(turn);
+
+    /*look around*/
+    let look = event.movementY / 2;
+    player.look(look);
 
     update();
 }

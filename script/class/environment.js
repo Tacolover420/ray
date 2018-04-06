@@ -59,20 +59,20 @@ class Environmemt {
             if (this.wallIndex[Math.round(drawx - size / 2 + x)] < distance) {
                 continue;
             }
-            ctx.drawImage(sprite.source, i, 0, 1, sprite.source.height, drawx - size / 2 + x, drawy, pixel, size);
+            ctx.drawImage(sprite.source, i, 0, 1, sprite.source.height, drawx - size / 2 + x, drawy - player.view, pixel, size);
         }
     }
 
     renderSky() {
         /*draw image*/
-        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * player.pod, 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
+        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * player.pod, 0, 1920 / 4, 1080, 0, 0 - 1080 / 10 + (-player.view), canvas.width, canvas.height / 1.5);
 
         /*draw image next to first image*/
-        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * (player.pod - 360), 0, 1920 / 4, 1080, 0, 0, canvas.width, canvas.height / 1.5);
+        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * (player.pod - 360), 0, 1920 / 4, 1080, 0, 0 - 1080 / 10 + (-player.view), canvas.width, canvas.height / 1.5);
 
         /*draw a ground*/
         ctx.fillStyle = Texture.Material.Ground;
-        ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
+        ctx.fillRect(0, canvas.height / 2 + (-player.view), canvas.width, canvas.height);
     }
 
     renderBlock() {
@@ -88,7 +88,7 @@ class Environmemt {
             let ray = this.raycast({x: player.x, y: player.y}, {x: rayx, y: rayy});
 
             /*draw textured wall*/
-            ctx.drawImage(ray.texture, Math.floor(ray.offset / 50 * ray.texture.width), 0, ray.texture.width / (canvas.width / 2), ray.texture.height, x, canvas.height / 2 - ray.distance / 2, 1, ray.distance);
+            ctx.drawImage(ray.texture, Math.floor(ray.offset / 50 * ray.texture.width), 0, ray.texture.width / (canvas.width / 2), ray.texture.height, x, canvas.height / 2 - (ray.distance / 2 + player.view), 1, ray.distance);
             ctx.globalAlpha = 1.0;
         }
 

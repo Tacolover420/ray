@@ -6,6 +6,7 @@ class Player {
         this.speed = 1;
         this.fov = 90;
         this.fat = 15;
+        this.view = 0;
     }
 
     turn(speed) {
@@ -18,6 +19,23 @@ class Player {
         }
         if (this.pod < 0) {
             this.pod += 360;
+        }
+
+        update();
+    }
+
+    look(speed) {
+        /*look around*/
+        player.view += speed;
+
+        /*lower view*/
+        if (this.view > 150) {
+            this.view = 150;
+        }
+
+        /*upper view*/
+        if (this.view < -100) {
+            this.view = -100;
         }
 
         update();
