@@ -11,10 +11,16 @@ class Environmemt {
             new Sprite(75, 225, Texture.Sprite.Plant.Material),
             new Sprite(225, 75, Texture.Sprite.Barrel.Material),
             new Sprite(125, 325, Texture.Sprite.Table.Material),
-            new Sprite(350, 350, Texture.Sprite.Table.Material),
-            new Sprite(450, 150, Texture.Sprite.Table.Material)
+            new Sprite(350, 350, Texture.Sprite.Plant.Material),
+            new Sprite(450, 150, Texture.Sprite.Barrel.Material),
+            new Sprite(475, 625, Texture.Sprite.Table.Material)
         ];
         this.wallIndex = [];
+    }
+
+    render() {
+        this.renderSky();
+        this.renderBlock();
     }
 
     renderSprite(sprite) {

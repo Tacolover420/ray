@@ -14,7 +14,7 @@ let environment = new Environmemt([
     [2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 2, 3, 4, 5, 6, 7, 8, 1, 1]
 ]);
-let minimap = new Minimap(250);
+let minimap = new Minimap(350);
 let player = new Player(100, 100, 45);
 
 /*future game loop*/
@@ -22,12 +22,11 @@ function update() {
     ctx.clearRect(0, 0,canvas.width, canvas.height);
 
     /*draw pseudo 3d*/
-    environment.renderSky();
-    environment.renderBlock();
+    environment.render();
 
     /*draw minimap*/
-    minimap.renderBlock();
-    minimap.renderPlayer();
+    //minimap.renderMap();
+    minimap.renderMinimap();
 
     /*sort sprite array*/
     let sort = [];
@@ -38,7 +37,7 @@ function update() {
 
     /*render sprites 3d and minimap*/
     for (let i = 0; i < environment.sprite.length; i++) {
-        minimap.renderSprite(environment.sprite[i]);
+        minimap.renderSpriteMinimap(environment.sprite[i]);
         environment.renderSprite(sort[i].sprite);
     }
 
