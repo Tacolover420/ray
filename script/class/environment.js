@@ -71,10 +71,10 @@ class Environmemt {
 
     renderSky() {
         /*draw image*/
-        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * player.pod, 0, 1920 / 4, 1080, 0, 0 - 1080 / 10 + (-player.view), canvas.width, canvas.height / 1.5);
+        ctx.drawImage(Texture.Material.Sky, Texture.Material.Sky.width / 360 * player.pod, 0, Texture.Material.Sky.width / 4, Texture.Material.Sky.height, 0, 0 - Texture.Material.Sky.height / 5 + (-player.view), canvas.width, canvas.height / 1.5);
 
         /*draw image next to first image*/
-        ctx.drawImage(Texture.Material.Sky, 1920 / 360 * (player.pod - 360), 0, 1920 / 4, 1080, 0, 0 - 1080 / 10 + (-player.view), canvas.width, canvas.height / 1.5);
+        ctx.drawImage(Texture.Material.Sky, Texture.Material.Sky.width / 360 * (player.pod - 360), 0, Texture.Material.Sky.width / 4, Texture.Material.Sky.height, 0, 0 - Texture.Material.Sky.height / 5 + (-player.view), canvas.width, canvas.height / 1.5);
 
         /*draw a ground*/
         ctx.fillStyle = Texture.Material.Ground;
@@ -94,10 +94,16 @@ class Environmemt {
             let ray = this.raycast({x: player.x, y: player.y}, {x: rayx, y: rayy});
 
             /*draw textured wall*/
-            ctx.drawImage(ray.texture, Math.floor(ray.offset / 50 * ray.texture.width), 0, ray.texture.width / (canvas.width / 2), ray.texture.height, x, canvas.height / 2 - (ray.distance / 2 + player.view), 1, ray.distance);
+            ctx.drawImage(ray.texture, Math.round(ray.offset / 50 * ray.texture.width), 0, ray.texture.width / (canvas.width / 2), ray.texture.height, x, canvas.height / 2 - (ray.distance / 2 + player.view), 1, ray.distance);
+
+            /*apply shadow*/
+            if (ray.shadow) {
+                ctx.globalAlpha = 0.4;
+                ctx.fillStyle = "#000";
+                ctx.fillRect(x, canvas.height / 2 - (ray.distance / 2 + player.view), 1, ray.distance);
+            }
             ctx.globalAlpha = 1.0;
         }
-
         this.renderFloor();
     }
 
@@ -127,8 +133,6 @@ class Environmemt {
                 /*get wall texture*/
                 let texture = getWallSource(this.grid[Math.floor(y / this.block)][Math.floor(x / this.block)]);
 
-                //console.log(x + " " + y);
-
                 /*get distance to wall and save z*/
                 let distance = getDistance(player.x, player.y, x, y);
                 this.wallIndex.push(distance);
@@ -137,12 +141,22 @@ class Environmemt {
                 distance = this.transform / distance;
 
                 /*get texture offset*/
-                let offset = Math.floor(x % 50);
-                if (Math.floor(x % 50) == 0 || Math.floor((x + 1) % 50) == 0) {
-                    offset = Math.floor(y % 50);
+                let offset = (start.x + dx * i) % 50;
+                if (x % 50 == 0 || (x + 1) % 50 == 0) {
+                    offset = (start.y + dy * i) % 50;
                 }
 
-                return {distance: distance, offset: offset, texture: texture};
+                /*north and east walls*/
+                let shadow = false;
+                if ((start.x + dx * i) % 50 < (start.y + dy * i) % 50) {
+                    /*set shadow*/
+                    shadow = true;
+
+                    /*invert texture*/
+                    offset = 50 - offset;
+                }
+
+                return {distance: distance, offset: offset, texture: texture, shadow: shadow};
             }
         }
     }

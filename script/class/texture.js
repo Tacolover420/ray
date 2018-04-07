@@ -9,7 +9,10 @@ let Texture = {
         Colorstone: {Material: 5, Load: new Image()},
         Purplestone: {Material: 6, Load: new Image()},
         Bluestone: {Material: 7, Load: new Image()},
-        Mossy: {Material: 8, Load: new Image()}
+        Mossy: {Material: 8, Load: new Image()},
+        Castle: {Material: 9, Load: new Image()},
+        Wall: {Material: 10, Load: new Image()},
+        Whitestone: {Material: 11, Load: new Image()}
     },
 
     /*all sprite types*/
@@ -54,6 +57,15 @@ function getWallSource(type) {
             break;
         case Texture.Wall.Mossy.Material:
             return Texture.Wall.Mossy.Load;
+            break;
+        case Texture.Wall.Castle.Material:
+            return Texture.Wall.Castle.Load;
+            break;
+        case Texture.Wall.Wall.Material:
+            return Texture.Wall.Wall.Load;
+            break;
+        case Texture.Wall.Whitestone.Material:
+            return Texture.Wall.Whitestone.Load;
             break;
         default:
             return Texture.Wall.Stone.Load;

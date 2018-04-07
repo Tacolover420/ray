@@ -69,6 +69,7 @@ class Player {
     }
 
     crosshair() {
+        ctx.fillStyle = "#000";
         ctx.fillRect(canvas.width / 2 - 3, canvas.height / 2 - 30, 3 * 2, 30 * 2);
         ctx.fillRect(canvas.width / 2 - 30, canvas.height / 2 - 3, 30 * 2, 3 * 2);
     }

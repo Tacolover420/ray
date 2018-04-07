@@ -58,6 +58,7 @@ function compareDistance(a, b) {
     return comparison;
 }
 
+/*check if points / rectangles are in range*/
 function compareStartEnd(min0, max0, min1, max1) {
     return max0 > min1 && min0 < max1;
 }

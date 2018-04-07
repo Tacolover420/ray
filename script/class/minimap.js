@@ -3,7 +3,7 @@ class Minimap {
         this.width = width;
         this.blockSurface = width / (environment.width * environment.block) * environment.block;
         this.height = this.blockSurface * environment.height;
-        this.size = 10 / 2;
+        this.size = 6 / 2;
     }
 
     renderMap() {

@@ -6,7 +6,7 @@ let ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
 
 /*wall and sprite texture sources*/
-Texture.Material.Sky.src = "texture/sky.jpg";
+Texture.Material.Sky.src = "texture/sky0.jpg";
 Texture.Wall.Stone.Load.src = "texture/wall/stone.jpg";
 Texture.Wall.Wood.Load.src = "texture/wall/wood.jpg";
 Texture.Wall.Brick.Load.src = "texture/wall/brick.jpg";
@@ -15,6 +15,9 @@ Texture.Wall.Colorstone.Load.src = "texture/wall/colorstone.png";
 Texture.Wall.Purplestone.Load.src = "texture/wall/purplestone.png";
 Texture.Wall.Bluestone.Load.src = "texture/wall/bluestone.png";
 Texture.Wall.Mossy.Load.src = "texture/wall/mossy.png";
+Texture.Wall.Castle.Load.src = "texture/wall/castle.jpg";
+Texture.Wall.Wall.Load.src = "texture/wall/wall.jpg";
+Texture.Wall.Whitestone.Load.src = "texture/wall/whitestone.jpg";
 Texture.Sprite.Table.Load.src = "texture/sprite/table.png";
 Texture.Sprite.Armor.Load.src = "texture/sprite/armor.png";
 Texture.Sprite.Light.Load.src = "texture/sprite/light.png";
