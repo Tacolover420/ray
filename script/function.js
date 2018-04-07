@@ -37,6 +37,17 @@ function lockChangeLog() {
     }
 }
 
+window.onresize = function(event) {
+    scaleCanvas();
+};
+
+/*scale canvas*/
+function scaleCanvas() {
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+    update();
+}
+
 /*get distance between two points(x, y)*/
 function getDistance(x1, y1, x2, y2) {
     let dx = x1 - x2;

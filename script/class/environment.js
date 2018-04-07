@@ -151,7 +151,8 @@ class Environmemt {
                 if ((start.x + dx * i) % 50 < (start.y + dy * i) % 50) {
                     /*set shadow*/
                     shadow = true;
-
+                }
+                else {
                     /*invert texture*/
                     offset = 50 - offset;
                 }

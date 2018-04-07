@@ -7,6 +7,7 @@ class Player {
         this.fov = 90;
         this.fat = 15;
         this.view = 0;
+        this.gun = {x: 50, y: 50, xmove: 2, ymove: 4};
     }
 
     turn(speed) {
@@ -20,6 +21,8 @@ class Player {
         if (this.pod < 0) {
             this.pod += 360;
         }
+
+        this.moveGun(speed / 2, 0);
 
         update();
     }
@@ -38,6 +41,8 @@ class Player {
             this.view = -100;
         }
 
+        this.moveGun(0, speed / 2);
+
         update();
     }
 
@@ -50,6 +55,8 @@ class Player {
         if (this.collide()) {
             this.move(deg + 180);
         }
+
+        this.moveGun(this.gun.xmove, this.gun.ymove);
 
         update();
     }
@@ -69,8 +76,46 @@ class Player {
     }
 
     crosshair() {
+        /*draw a crosshair*/
         ctx.fillStyle = "#000";
         ctx.fillRect(canvas.width / 2 - 3, canvas.height / 2 - 30, 3 * 2, 30 * 2);
         ctx.fillRect(canvas.width / 2 - 30, canvas.height / 2 - 3, 30 * 2, 3 * 2);
+    }
+
+    ego() {
+        this.crosshair();
+
+        /*draw ego gun*/
+        let texture = Texture.Ego.Ak.Load;
+        let offset = 20;
+        ctx.drawImage(texture, (canvas.width / 2 + canvas.width / 100 * offset) - texture.width / 2 + this.gun.x, canvas.height - texture.height + this.gun.y, texture.width, texture.height);
+    }
+
+    moveGun(x, y) {
+        /*add movement trough breathing!*/
+
+        /*move gun while walking*/
+        this.gun.x += x;
+        this.gun.y += y;
+
+        /*check x*/
+        if (this.gun.x < 0) {
+            this.gun.x = 0;
+            this.gun.xmove *= -1;
+        }
+        else if (this.gun.x > 120) {
+            this.gun.x = 120;
+            this.gun.xmove *= -1;
+        }
+
+        /*check y*/
+        if (this.gun.y < 0) {
+            this.gun.y = 0;
+            this.gun.ymove *= -1;
+        }
+        else if (this.gun.y > 150) {
+            this.gun.y = 150;
+            this.gun.ymove *= -1;
+        }
     }
 }

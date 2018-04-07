@@ -67,10 +67,12 @@ document.onkeydown = function(event) {
         case 70:
             if (screen == false) {
                 launchIntoFullscreen(document.documentElement);
+                scaleCanvas();
                 screen = true;
             }
             else {
                 exitFullscreen();
+                scaleCanvas();
                 screen = false;
             }
             break;

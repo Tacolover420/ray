@@ -12,7 +12,9 @@ let Texture = {
         Mossy: {Material: 8, Load: new Image()},
         Castle: {Material: 9, Load: new Image()},
         Wall: {Material: 10, Load: new Image()},
-        Whitestone: {Material: 11, Load: new Image()}
+        Whitestone: {Material: 11, Load: new Image()},
+        Swastika: {Material: 12, Load: new Image()},
+        Diamond: {Material: 13, Load: new Image()}
     },
 
     /*all sprite types*/
@@ -25,6 +27,14 @@ let Texture = {
         Barrel: {Material: 5, Load: new Image()},
         Pillar: {Material: 6, Load: new Image()}
     },
+
+    Ego: {
+        Empty: {Material: 0, Load: new Image()},
+        Ak: {Material: 1, Load: new Image()},
+        M4a1: {Material: 2, Load: new Image()},
+    },
+
+    Drop: null,
 
     /*all other materials*/
     Material: {
@@ -66,6 +76,12 @@ function getWallSource(type) {
             break;
         case Texture.Wall.Whitestone.Material:
             return Texture.Wall.Whitestone.Load;
+            break;
+        case Texture.Wall.Swastika.Material:
+            return Texture.Wall.Swastika.Load;
+            break;
+        case Texture.Wall.Diamond.Material:
+            return Texture.Wall.Diamond.Load;
             break;
         default:
             return Texture.Wall.Stone.Load;
